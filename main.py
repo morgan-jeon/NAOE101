@@ -1,15 +1,22 @@
 from machine import Pin, PWM
 import utime
 
+# RPi Pico PinMap
+DC = 
+SERVO = 
+
+motor = Pin(DC, Pin.OUT)
+pwm = PWM(Pin(SERVO))
+
+# Servo Init
 MID = 1500000
 MIN = 1000000
 MAX = 2000000
 
-motor = Pin(14, Pin.OUT)
-pwm = PWM(Pin(15))
-
 pwm.freq(50)
 pwm.duty_ns(MID)
+
+##########
 
 def start(time):
 	if time==0:
@@ -30,10 +37,12 @@ def right(angle):
 	start()
 
 def scan():
+	pass
 
 def process():
+	pass
 
-
+## MAIN ##
 while True:
 	scan()
 	process()
