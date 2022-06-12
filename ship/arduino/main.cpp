@@ -1,15 +1,15 @@
-#define ECHO1 2
-#define ECHO2 4
-#define ECHO3 6
+#define ECHO1 14 //digital
+#define ECHO2 16 //digital
+#define ECHO3 18 //digital
 
-#define TRIG1 3
-#define TRIG2 5
-#define TRIG3 7
+#define TRIG1 15 //digital
+#define TRIG2 17 //digital
+#define TRIG3 19 //digital
 
-#define MOTOR1A 10
-#define MOTOR1B 11
-#define MOTOR2A 12
-#define MOTOR2B 13
+#define MOTOR1A 3 //pwm
+#define MOTOR1B 5 //pwm
+#define MOTOR2A 6 //pwm
+#define MOTOR2B 9 //pwm
 
 long distance(int TRIG, int ECHO) {
   digitalWrite(TRIG, LOW);
@@ -97,34 +97,25 @@ bool center(){
 void straight(int time) {
   motor1(100);
   motor2(100);
-  int start_int = millis();
-  while(millis() > time + start_int){
-    motor1(0);
-    motor2(0);
-    return();
-  }
+  delayMicroseconds(2);
+  motor1(0);
+  motor2(0);
 }
 
 void turn_left() {
   motor1(100);
   motor2(0);
-  int start_int = millis();
-  while(millis() > 500 + start_int){
-    motor1(0);
-    motor2(0);
-    return();
-  }
+  delayMicroseconds(2);
+  motor1(0);
+  motor2(0);
 }
 
 void turn_right() {
   motor1(0);
   motor2(100);
-  int start_int = millis();
-  while(millis() > 500 + start_int){
-    motor1(0);
-    motor2(0);
-    return();
-  }
+  delayMicroseconds(2);
+  motor1(0);
+  motor2(0);
 }
 
 void setup() {
