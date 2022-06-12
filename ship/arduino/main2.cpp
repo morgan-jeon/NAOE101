@@ -1,15 +1,17 @@
-#define ECHO1 2
-#define ECHO2 4
-#define ECHO3 6
+#define ECHO1 8 //digital
+#define ECHO2 11 //digital
+#define ECHO3 4 //digital
 
-#define TRIG1 3
-#define TRIG2 5
-#define TRIG3 7
+#define TRIG1 7 //digital
+#define TRIG2 10 //digital
+#define TRIG3 2 //digital
 
-#define MOTOR1A 10
-#define MOTOR1B 11
-#define MOTOR2A 12
-#define MOTOR2B 13
+#define MOTOR1A 3 //pwm
+#define MOTOR1B 5 //pwm
+#define MOTOR2A 6 //pwm
+#define MOTOR2B 9 //pwm
+
+#define LIMIT 40
 
 long distance(int TRIG, int ECHO) {
   digitalWrite(TRIG, LOW);
@@ -33,7 +35,7 @@ void motor1(int speed) {
   }
   else if(speed < 0){
     analogWrite(MOTOR1A, 0);
-    analogWrite(MOTOR1B, speed);
+    analogWrite(MOTOR1B, -1*speed);
   }
 }
 
@@ -48,7 +50,7 @@ void motor2(int speed) {
   }
   else if(speed < 0){
     analogWrite(MOTOR2A, 0);
-    analogWrite(MOTOR2B, speed);
+    analogWrite(MOTOR2B, -1*speed);
   }
 }
 
@@ -59,10 +61,10 @@ bool left(){
   } else {
     dis = distance(TRIG1, ECHO1);
   }
-  if(dis < 40){
-    return(0);
-  } else {
+  if(dis < LIMIT){
     return(1);
+  } else {
+    return(0);
   }
 }
 
@@ -73,10 +75,10 @@ bool right(){
   } else {
     dis = distance(TRIG3, ECHO3);
   }
-  if(dis < 40){
-    return(0);
-  } else {
+  if(dis < LIMIT){
     return(1);
+  } else {
+    return(0);
   }
 }
 
@@ -87,33 +89,35 @@ bool center(){
   } else {
     dis = distance(TRIG2, ECHO2);
   }
-  if(dis < 40){
-    return(0);
-  } else {
+  if(dis < LIMIT){
     return(1);
+  } else {
+    return(0);
   }
 }
 
-void straight(int time){
-  motor1(100);
-  motor2(100);
-  dalay(time);
+void straight(int time) {
+  motor1(255);
+  motor2(255);
+  if(time != 9999){
+    delay(time*1000);
+    motor1(0);
+    motor2(0);
+  }
+}
+
+void turn_left(int time) {
+  motor1(255);
+  motor2(-255);
+  delay(time*1000);
   motor1(0);
   motor2(0);
 }
 
-void turn_left(){
-  motor1(100);
-  motor2(0);
-  delay(50);
-  motor1(0);
-  motor2(0);
-}
-
-void turn_right(){
-  motor1(0);
-  motor2(100);
-  delay(50);
+void turn_right(int time) {
+  motor1(-255);
+  motor2(255);
+  delay(time*1000);
   motor1(0);
   motor2(0);
 }
@@ -130,37 +134,125 @@ void setup() {
   pinMode(MOTOR1B, OUTPUT);
   pinMode(MOTOR2A, OUTPUT);
   pinMode(MOTOR2B, OUTPUT);
+//
+//  delay(1000);
+//  straight(8);
+//  delay(500);
+//  turn_left(3);
+//  delay(500);
+//  straight(4.3);
+//  delay(500);
+//  turn_left(3);
+//  delay(500);
+//  straight(4.3);
+//  delay(500);
+//  turn_right(3);
+//  delay(500);
+//  straight(4.3);
+//  delay(500);
+//  turn_right(3);
+//  delay(500);
+//  straight(8);
+
+
+  straight(1);
+  delay(1000);
+  straight(6);
+  delay(500);
+  turn_left(2);
+  delay(500);
+  straight(1);
+  delay(500);
+  turn_left(2);
+  delay(500);
+  straight(3);
+  delay(500);
+  turn_right(2);
+  delay(500);
+  straight(1);
+  delay(500);
+  turn_right(2);
+  delay(500);
+  straight(3);
+  delay(500);
+  turn_left(2);
+  delay(500);
+  straight(1);
+  
 }
 
 void loop() {
-  delay(100);
-  int d1 = distance(TRIG1, ECHO1);
-  int d2 = distance(TRIG2, ECHO2);
-  int d3 = distance(TRIG3, ECHO3);
+   delay(1000);
+//  int d1 = distance(TRIG1, ECHO1);
+//  int d2 = distance(TRIG2, ECHO2);
+//  int d3 = distance(TRIG3, ECHO3);
   Serial.print("## ");
-  Serial.print(d1);
+  Serial.print(left());
   Serial.print("\t");
-  Serial.print(d2);
+  Serial.print(center());
   Serial.print("\t");
-  Serial.print(d3);
+  Serial.print(right());
   Serial.print("\t");
   Serial.println();
+  
+  straight(9999);
+  if(center()){
+    straight(0);
+    delay(1000);
+    while(center()){
+      turn_left(1);
+      delay(500);
+    }
+    straight(9999);
+    if(center()){
+      straight(0);
+      delay(1000);
+      while(center()){
+        turn_left(1);
+        delay(500);
+      }
+      straight(9999);
+      if(center()){
+        straight(0);
+        delay(1000);
+        while(center()){
+          turn_left(1);
+          delay(500);
+        }
+        straight(9999);
+        if(center()){
+          straight(0);
+          delay(1000);
+          while(center()){
+            turn_right(1);
+            delay(500);
+          }
+          straight(2);
+          delay(1000);
+          turn_right(1);
+          delay(500); 
 
-  while(1){
-    while( !center() ){
-      // go_straight
+          straight(9999);
+          if(center()){
+            straight(0);
+            delay(1000);
+            while(center()){
+              turn_left(1);
+              delay(500);
+            }
+            straight(9999);
+            if(center()){
+              straight(0);
+            }
+          }  
+        } 
+      } 
     }
-    if( center() ){
-      if( right() ){
-        while(!center()){
-          // turn_left
-        }
-      }
-      if( left() ){
-        while(!center()){
-          // turn_right
-        }
-      }
-    }
-  }
+  } 
+//  straight(1);
+//  delay(1000);
+//  turn_left();
+//  delay(1000);
+//  turn_right();
+//  delay(1000);
 }

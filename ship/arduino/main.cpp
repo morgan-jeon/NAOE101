@@ -1,15 +1,17 @@
-#define ECHO1 11 //digital
-#define ECHO2 13 //digital
-#define ECHO3 15 //digital
+#define ECHO1 8 //digital
+#define ECHO2 11 //digital
+#define ECHO3 4 //digital
 
-#define TRIG1 15 //digital
-#define TRIG2 17 //digital
-#define TRIG3 19 //digital
+#define TRIG1 7 //digital
+#define TRIG2 10 //digital
+#define TRIG3 2 //digital
 
 #define MOTOR1A 3 //pwm
 #define MOTOR1B 5 //pwm
 #define MOTOR2A 6 //pwm
 #define MOTOR2B 9 //pwm
+
+#define LIMIT 40
 
 long distance(int TRIG, int ECHO) {
   digitalWrite(TRIG, LOW);
@@ -59,10 +61,10 @@ bool left(){
   } else {
     dis = distance(TRIG1, ECHO1);
   }
-  if(dis < 40){
-    return(0);
-  } else {
+  if(dis < LIMIT){
     return(1);
+  } else {
+    return(0);
   }
 }
 
@@ -73,10 +75,10 @@ bool right(){
   } else {
     dis = distance(TRIG3, ECHO3);
   }
-  if(dis < 40){
-    return(0);
-  } else {
+  if(dis < LIMIT){
     return(1);
+  } else {
+    return(0);
   }
 }
 
@@ -87,10 +89,10 @@ bool center(){
   } else {
     dis = distance(TRIG2, ECHO2);
   }
-  if(dis < 40){
-    return(0);
-  } else {
+  if(dis < LIMIT){
     return(1);
+  } else {
+    return(0);
   }
 }
 
@@ -102,18 +104,18 @@ void straight(int time) {
   motor2(0);
 }
 
-void turn_left() {
+void turn_left(int time) {
   motor1(255);
-  motor2(0);
-  delay(1000);
+  motor2(-255);
+  delay(time*1000);
   motor1(0);
   motor2(0);
 }
 
-void turn_right() {
-  motor1(0);
+void turn_right(int time) {
+  motor1(-255);
   motor2(255);
-  delay(1000);
+  delay(time*1000);
   motor1(0);
   motor2(0);
 }
@@ -130,25 +132,75 @@ void setup() {
   pinMode(MOTOR1B, OUTPUT);
   pinMode(MOTOR2A, OUTPUT);
   pinMode(MOTOR2B, OUTPUT);
-
-  delay(1000);
-  straight(5);
+//
+//  delay(1000);
+//  straight(8);
+//  delay(500);
+//  turn_left(3);
+//  delay(500);
+//  straight(4.3);
+//  delay(500);
+//  turn_left(3);
+//  delay(500);
+//  straight(4.3);
+//  delay(500);
+//  turn_right(3);
+//  delay(500);
+//  straight(4.3);
+//  delay(500);
+//  turn_right(3);
+//  delay(500);
+//  straight(8);
 }
 
 void loop() {
-  // delay(100);
+   delay(1000);
 //  int d1 = distance(TRIG1, ECHO1);
 //  int d2 = distance(TRIG2, ECHO2);
 //  int d3 = distance(TRIG3, ECHO3);
-//  Serial.print("## ");
-//  Serial.print(d1);
-//  Serial.print("\t");
-//  Serial.print(d2);
-//  Serial.print("\t");
-//  Serial.print(d3);
-//  Serial.print("\t");
-//  Serial.println();
+  Serial.print("## ");
+  Serial.print(left());
+  Serial.print("\t");
+  Serial.print(center());
+  Serial.print("\t");
+  Serial.print(right());
+  Serial.print("\t");
+  Serial.println();
 
+  delay(1000);
+  while( !center() ){
+    straight(1);
+  }
+  delay(500);
+  turn_left(3);
+  delay(500);
+  while( !center() ){
+    straight(1);
+  }
+  delay(500);
+  turn_left(3);
+  delay(500);
+  while( !center() ){
+    straight(1);
+  }
+  delay(500);
+  turn_right(3);
+  delay(500);
+  straight(1);
+  delay(500);
+  turn_right(3);
+  delay(500);
+  while( !center() ){
+    straight(1);
+  }
+  delay(500);
+  turn_left(3);
+  delay(500);
+  while( !center() ){
+    straight(1);
+  }
+  
+  
 //  straight(1);
 //  delay(1000);
 //  turn_left();
