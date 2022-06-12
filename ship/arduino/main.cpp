@@ -1,6 +1,6 @@
-#define ECHO1 14 //digital
-#define ECHO2 16 //digital
-#define ECHO3 18 //digital
+#define ECHO1 11 //digital
+#define ECHO2 13 //digital
+#define ECHO3 15 //digital
 
 #define TRIG1 15 //digital
 #define TRIG2 17 //digital
@@ -33,7 +33,7 @@ void motor1(int speed) {
   }
   else if(speed < 0){
     analogWrite(MOTOR1A, 0);
-    analogWrite(MOTOR1B, speed);
+    analogWrite(MOTOR1B, -1*speed);
   }
 }
 
@@ -48,7 +48,7 @@ void motor2(int speed) {
   }
   else if(speed < 0){
     analogWrite(MOTOR2A, 0);
-    analogWrite(MOTOR2B, speed);
+    analogWrite(MOTOR2B, -1*speed);
   }
 }
 
@@ -95,25 +95,25 @@ bool center(){
 }
 
 void straight(int time) {
-  motor1(100);
-  motor2(100);
-  delayMicroseconds(2);
+  motor1(255);
+  motor2(255);
+  delay(time*1000);
   motor1(0);
   motor2(0);
 }
 
 void turn_left() {
-  motor1(100);
+  motor1(255);
   motor2(0);
-  delayMicroseconds(2);
+  delay(1000);
   motor1(0);
   motor2(0);
 }
 
 void turn_right() {
   motor1(0);
-  motor2(100);
-  delayMicroseconds(2);
+  motor2(255);
+  delay(1000);
   motor1(0);
   motor2(0);
 }
@@ -130,24 +130,29 @@ void setup() {
   pinMode(MOTOR1B, OUTPUT);
   pinMode(MOTOR2A, OUTPUT);
   pinMode(MOTOR2B, OUTPUT);
+
+  delay(1000);
+  straight(5);
 }
 
 void loop() {
-  delay(100);
-  int d1 = distance(TRIG1, ECHO1);
-  int d2 = distance(TRIG2, ECHO2);
-  int d3 = distance(TRIG3, ECHO3);
-  Serial.print("## ");
-  Serial.print(d1);
-  Serial.print("\t");
-  Serial.print(d2);
-  Serial.print("\t");
-  Serial.print(d3);
-  Serial.print("\t");
-  Serial.println();
+  // delay(100);
+//  int d1 = distance(TRIG1, ECHO1);
+//  int d2 = distance(TRIG2, ECHO2);
+//  int d3 = distance(TRIG3, ECHO3);
+//  Serial.print("## ");
+//  Serial.print(d1);
+//  Serial.print("\t");
+//  Serial.print(d2);
+//  Serial.print("\t");
+//  Serial.print(d3);
+//  Serial.print("\t");
+//  Serial.println();
 
-  straight(0);
-  turn_left();
-  turn_right();
-  straight(0);
+//  straight(1);
+//  delay(1000);
+//  turn_left();
+//  delay(1000);
+//  turn_right();
+//  delay(1000);
 }
