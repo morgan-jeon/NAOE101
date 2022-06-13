@@ -11,7 +11,7 @@
 #define MOTOR2A 6 //pwm
 #define MOTOR2B 9 //pwm
 
-#define LIMIT 40
+#define LIMIT 20
 
 long distance(int TRIG, int ECHO) {
   digitalWrite(TRIG, LOW);
@@ -97,7 +97,7 @@ bool center(){
 }
 
 void straight(int time) {
-  motor1(255);
+  motor1(240);
   motor2(255);
   if(time != 9999){
     delay(time*1000);
@@ -134,55 +134,116 @@ void setup() {
   pinMode(MOTOR1B, OUTPUT);
   pinMode(MOTOR2A, OUTPUT);
   pinMode(MOTOR2B, OUTPUT);
-//
+
+//  delay(2000);
+//  straight(9);
+//  delay(500);
+//  turn_left(2.2);
+//  delay(800);
+//  straight(2);
 //  delay(1000);
+//  turn_left(2.2);
+//  delay(800);
 //  straight(8);
 //  delay(500);
-//  turn_left(3);
-//  delay(500);
-//  straight(4.3);
-//  delay(500);
-//  turn_left(3);
-//  delay(500);
-//  straight(4.3);
-//  delay(500);
-//  turn_right(3);
-//  delay(500);
-//  straight(4.3);
-//  delay(500);
-//  turn_right(3);
-//  delay(500);
+//  turn_right(2.2);
+//  delay(800);
+//  straight(2);
+//  delay(1000);
+//  turn_right(2.2);
+//  delay(800);
 //  straight(8);
-
-
-  straight(1);
+//  delay(500);
+//  turn_left(2.2);
+//  delay(800);
+//  straight(2);
+//  delay(1000);
+//  turn_left(2.2);
+//  delay(800);
+//  straight(9);
+//  
+//  straight(1);
   delay(1000);
-  straight(6);
+  straight(9);
   delay(500);
-  turn_left(2);
+  turn_left(2.3);
+  delay(100);
+  straight(2);
+  delay(1000);
+  turn_left(3);
+  delay(800);
+  straight(4);
   delay(500);
-  straight(1);
-  delay(500);
-  turn_left(2);
-  delay(500);
-  straight(3);
-  delay(500);
-  turn_right(2);
-  delay(500);
-  straight(1);
-  delay(500);
-  turn_right(2);
-  delay(500);
-  straight(3);
-  delay(500);
-  turn_left(2);
-  delay(500);
-  straight(1);
-  
+  turn_right(2.5);
+  delay(2000);
+  straight(8);
+
+//  delay(2000);
+//  while(!center()){
+//    straight(9999);  
+//  }
+//  straight(9999);
+//  Serial.print("straight");
+//  if(center()){
+//    Serial.print("center");
+//    straight(0);
+//    delay(1000);
+//    while(center()){
+//      Serial.print("left");
+//      turn_left(1);
+//      delay(500);
+//    }
+//    straight(9999);
+//    if(center()){
+//      Serial.print("center");
+//      straight(0);
+//      delay(1000);
+//      while(center()){
+//        turn_left(1);
+//        delay(500);
+//      }
+//      straight(9999);
+//      if(center()){
+//        straight(0);
+//        delay(1000);
+//        while(center()){
+//          turn_left(1);
+//          delay(500);
+//        }
+//        straight(9999);
+//        if(center()){
+//          straight(0);
+//          delay(1000);
+//          while(center()){
+//            turn_right(1);
+//            delay(500);
+//          }
+//          straight(2);
+//          delay(1000);
+//          turn_right(1);
+//          delay(500); 
+//
+//          straight(9999);
+//          if(center()){
+//            straight(0);
+//            delay(1000);
+//            while(center()){
+//              turn_left(1);
+//              delay(500);
+//            }
+//            straight(9999);
+//            if(center()){
+//              straight(0);
+//            }
+//          }  
+//        } 
+//      } 
+//    }
+//  }
 }
 
 void loop() {
-   delay(1000);
+   delay(100);
 //  int d1 = distance(TRIG1, ECHO1);
 //  int d2 = distance(TRIG2, ECHO2);
 //  int d3 = distance(TRIG3, ECHO3);
@@ -194,61 +255,7 @@ void loop() {
   Serial.print(right());
   Serial.print("\t");
   Serial.println();
-  
-  straight(9999);
-  if(center()){
-    straight(0);
-    delay(1000);
-    while(center()){
-      turn_left(1);
-      delay(500);
-    }
-    straight(9999);
-    if(center()){
-      straight(0);
-      delay(1000);
-      while(center()){
-        turn_left(1);
-        delay(500);
-      }
-      straight(9999);
-      if(center()){
-        straight(0);
-        delay(1000);
-        while(center()){
-          turn_left(1);
-          delay(500);
-        }
-        straight(9999);
-        if(center()){
-          straight(0);
-          delay(1000);
-          while(center()){
-            turn_right(1);
-            delay(500);
-          }
-          straight(2);
-          delay(1000);
-          turn_right(1);
-          delay(500); 
-
-          straight(9999);
-          if(center()){
-            straight(0);
-            delay(1000);
-            while(center()){
-              turn_left(1);
-              delay(500);
-            }
-            straight(9999);
-            if(center()){
-              straight(0);
-            }
-          }  
-        } 
-      } 
-    }
-  } 
+ 
 //  straight(1);
 //  delay(1000);
 //  turn_left();

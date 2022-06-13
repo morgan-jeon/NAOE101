@@ -171,24 +171,6 @@ void setup() {
     break;
   }
  }
-//  while(1){
-//    straight(9999);
-//    if(center(50)){
-//      straight(0);
-//      delay(500);
-//      
-//      if(left(30)){
-//        turn_left(2.3);
-//        delay(500);
-//      }
-//
-//      if(right(30)){
-//        turn_right(2.3);
-//        delay(500);
-//      }
-//    }
-//  }
-  
 }
 
 void loop() {
@@ -196,25 +178,4 @@ void loop() {
   int d1 = distance(TRIG1, ECHO1);
   int d2 = distance(TRIG2, ECHO2);
   int d3 = distance(TRIG3, ECHO3);
-  Serial.print("## ");
-  Serial.print(left());
-  Serial.print(" ");
-  Serial.print(d1);
-  Serial.print("\t");
-  Serial.print(center());
-  Serial.print(" ");
-  Serial.print(d2);
-  Serial.print("\t");
-  Serial.print(right());
-  Serial.print(" ");
-  Serial.print(d3);
-  Serial.print("\t");
-  Serial.println();
- 
-//  straight(1);
-//  delay(1000);
-//  turn_left();
-//  delay(1000);
-//  turn_right();
-//  delay(1000);
 }
